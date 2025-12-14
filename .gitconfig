@@ -1,0 +1,5 @@
+[user]
+	name = BuildTools
+	email = unconfigured@null.spigotmc.org
+[core]
+	editor = \"C:\\Users\\jayea\\AppData\\Local\\Programs\\Microsoft VS Code\\bin\\code\" --wait
