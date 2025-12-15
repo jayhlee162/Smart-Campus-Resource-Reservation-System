@@ -1,4 +1,5 @@
 #include "School.h"
+
 void School::loadAll(){
     FileWriter::loadUsers(users, "SCRRSusers.csv");
     FileWriter::loadReservations(reservations, "SCRRSreservations.csv");
@@ -80,8 +81,9 @@ User School::login(){
     return User();
 }
 
-void School::createReservation(User){
-   std::cout << "running createReservation\n"; 
+void School::createReservation(User user){
+    Reservation* res = new Reservation();
+    reservations.push_back(*res);
 }
 void School::cancelReservation(User){
     std::cout << "running cancelReservation\n";

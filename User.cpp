@@ -1,4 +1,4 @@
-#include "user.h"
+#include "User.h"
 
 User::User(){
     this->username = " ";
