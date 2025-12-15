@@ -24,4 +24,6 @@ public:
                           const std::string& filename);
     static bool loadUsers(std::vector<User>& users,
                           const std::string& filename);
+
+    static ResourceType strToResourceType(std::string);
 };

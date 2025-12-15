@@ -5,17 +5,23 @@ class Reservation
 {
 private:
     // School sch;
+    static int reservationIdCount;
+    int reservationId;
     int resourceId;
+    std::string username;
     int timeSlot;
     int dayIndex;
 
 public:
-    Reservation() : resourceId(-1), timeSlot(-1), dayIndex(-1) {}
-    Reservation(int id, int t, int d) : resourceId(id), timeSlot(t), dayIndex(d) {}
+    Reservation();
+    Reservation(int id, int t, int d, const std::string& username);
+    Reservation(int rsvId, int rscId, int time, int day, const std::string& username);  // for file load, no auto generated reservation ID
 
-    int getResourceId();
-    int getTimeSlot();
-    int getDayIndex();
+    int getReservationId() const;
+    int getResourceId() const;
+    const std::string& getUsername() const;
+    int getTimeSlot() const;
+    int getDayIndex() const;
 
     Reservation &setResourceId(int id);
     Reservation &setTimeSlot(int t);
