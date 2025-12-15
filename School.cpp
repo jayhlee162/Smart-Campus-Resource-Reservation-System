@@ -1,23 +1,27 @@
 #include "School.h"
-void School::loadAll(){
+void School::loadAll()
+{
     FileWriter::loadUsers(users, "SCRRSusers.csv");
     FileWriter::loadReservations(reservations, "SCRRSreservations.csv");
-    FileWriter::loadResources(resources,"SCRRSresources.csv");
+    FileWriter::loadResources(resources, "SCRRSresources.csv");
 }
-void School::saveAll(){
+void School::saveAll()
+{
     FileWriter::saveUsers(users, "SCRRSusers.csv");
     FileWriter::saveReservations(reservations, "SCRRSreservations.csv");
-    FileWriter::saveResources(resources,"SCRRSresources.csv");
+    FileWriter::saveResources(resources, "SCRRSresources.csv");
 }
 
-User School::login(){
+User School::login()
+{
     std::string username = " ";
     bool reEnter = false;
     bool tryAgain = false;
     int selection = 0;
     int adminStatus;
 
-    do{
+    do
+    {
         reEnter = false;
         std::cout << "Please select an option\n"
                   << "1. User Login\n"
@@ -25,79 +29,98 @@ User School::login(){
         std::cin >> selection;
         std::cin.ignore(1000, '\n');
 
-        if (selection == 1){
+        if (selection == 1)
+        {
             std::cout << "Enter username: ";
             std::getline(std::cin, username);
 
-            //returns user if username exists
-            for (int i = 0; i < users.size(); i++){
-                if (this->users[i].getUsername() == username){
+            // returns user if username exists
+            for (int i = 0; i < users.size(); i++)
+            {
+                if (this->users[i].getUsername() == username)
+                {
                     return this->users[i];
                 }
             }
             std::cout << "Username incorrect or does not exist. Please re-enter or create an account.\n\n";
             reEnter = true;
         }
-        else if (selection == 2){
-            do{
+        else if (selection == 2)
+        {
+            do
+            {
                 tryAgain = false;
                 std::cout << "Username: ";
                 std::getline(std::cin, username);
-                for (int i = 0; i < users.size(); i++){
-                    if (this->users[i].getUsername() == username){
+                for (int i = 0; i < users.size(); i++)
+                {
+                    if (this->users[i].getUsername() == username)
+                    {
                         std::cout << "Username already taken. Please try again\n";
                         tryAgain = true;
                     }
                 }
-            }while(tryAgain);
+            } while (tryAgain);
 
-            do{
+            do
+            {
                 std::cout << "Please select user type:\n"
                           << "1. Admin\n"
                           << "2. Student\n";
                 std::cin >> adminStatus;
 
-                if (adminStatus == 1){
+                if (adminStatus == 1)
+                {
                     users.emplace_back(username, true);
                 }
-                else if (adminStatus == 2){
+                else if (adminStatus == 2)
+                {
                     users.emplace_back(username, false);
                 }
-                else{
+                else
+                {
                     std::cout << "Invalid selection, please try again.\n";
                 }
-            }while (adminStatus < 1 || adminStatus > 2);
+            } while (adminStatus < 1 || adminStatus > 2);
 
             return users.back();
         }
-        else{
+        else
+        {
             std::cout << "invalid selection\n";
             reEnter = true;
         }
 
-    }while(reEnter);
+    } while (reEnter);
 
     return User();
 }
 
-void School::createReservation(User){
-   std::cout << "running createReservation\n"; 
+void School::createReservation(User)
+{
+    std::cout << "running createReservation\n";
 }
-void School::cancelReservation(User){
+void School::cancelReservation(User)
+{
     std::cout << "running cancelReservation\n";
 }
-void School::printReservation(User){
+void School::printReservation(User)
+{
     std::cout << "running printReservation\n";
 }
-void School::printResources(){
+void School::printResources()
+{
     std::cout << "running printResources\n";
 }
-void School::addResource(){
+void School::addResource()
+{
     std::cout << "running addResource\n";
 }
-void School::removeResource(){
+void School::removeResource()
+{
     std::cout << "running removeResource\n";
 }
-void School::editResource(){
+void School::editResource()
+{
     std::cout << "running editResource\n";
 }
