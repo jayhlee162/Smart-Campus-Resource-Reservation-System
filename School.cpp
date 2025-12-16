@@ -97,21 +97,55 @@ User School::login()
 }
 
 void School::createReservation(User user){
-    Reservation* res = new Reservation();
+    // TODO: add logic to check for existing reservations. cancelled ones can be overwritten
+    int timeSlot{0};
+    int dayIndex{0};
+    int resourceId{0};
+    
+    std::string days[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    std::cout << "Enter day:\n";
+    for (int i = 0; i < 7; i++) {
+        std::cout << i+1 << ") " << days[i] << "\n";
+    }
+    std::cin >> dayIndex;
+    
+    std::cout << "Enter the hour of your reservation (0 - 23): ";
+    std::cin >> timeSlot;
+    
+    std::cout << "Select which resource to reserve:\n";
+    for (int i = 0; i < resources.size(); i++) {
+        std::cout << i+1 << ") " << resources[i].getName() << "\n";
+    }
+    
+    std::cin >> resourceId;
+
+    std::cout << "Username: " << user.getUsername() << "\n";
+    Reservation* res = new Reservation(resourceId-1, timeSlot, dayIndex-1, user.getUsername());
     reservations.push_back(*res);
 }
+
 void School::cancelReservation(User)
 {
-    std::cout << "running cancelReservation\n";
+    int reservationId{0};
+
+    std::cout << "Enter the ID of the reservation you would like to cancel:\n";
+    std::cin >> reservationId;
+    reservations[reservationId].cancelReservation();
 }
+
 void School::printReservation(User)
 {
-    std::cout << "running printReservation\n";
+    Reservation::printReservationHeader();
+    for (int i = 0; i < reservations.size(); i++) {
+        reservations[i].printReservation();
+    }
 }
+
 void School::printResources()
 {
     std::cout << "running printResources\n";
 }
+
 void School::addResource()
 {
     std::cout << "running addResource\n";

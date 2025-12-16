@@ -11,6 +11,7 @@ private:
     std::string username;
     int timeSlot;
     int dayIndex;
+    bool cancelled{false};
 
 public:
     Reservation();
@@ -26,6 +27,10 @@ public:
     Reservation &setResourceId(int id);
     Reservation &setTimeSlot(int t);
     Reservation &setDayIndex(int d);
+
+    void cancelReservation();
+    void printReservation();
+    static void printReservationHeader();
 
     // collision resolution
     bool collisionCheck(const Reservation &other) const;

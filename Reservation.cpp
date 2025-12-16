@@ -1,8 +1,11 @@
 #include "Reservation.h"
 #include <iostream>
+#include <iomanip>
+
+int Reservation::reservationIdCount = 0;
 
 Reservation::Reservation() : resourceId(-1), timeSlot(-1), dayIndex(-1) {}
-Reservation::Reservation(int id, int t, int d, const std::string &u) : resourceId(id), timeSlot(t), dayIndex(d), username(u) {}
+Reservation::Reservation(int id, int t, int d, const std::string& username) : resourceId(id), timeSlot(t), dayIndex(d), reservationId(reservationIdCount++) {}
 Reservation::Reservation(int rsvId, int rscId, int time, int day, const std::string &u) : reservationId(rsvId), resourceId(rscId), timeSlot(time), dayIndex(day), username(u) {}
 
 int Reservation::getResourceId() const
@@ -41,6 +44,26 @@ Reservation &Reservation::setDayIndex(int d)
 {
     dayIndex = d;
     return *this;
+}
+
+void Reservation::cancelReservation() {
+    cancelled = true;
+}
+
+void Reservation::printReservationHeader() {
+    std::cout << std::right;
+    std::cout << std::setw(20) << "reservationId";
+    std::cout << std::setw(20) << "timeSlot";
+    std::cout << std::setw(20) << "dayIndex";
+    std::cout << std::setw(20) << "username" << "\n";
+}
+
+void Reservation::printReservation() {
+    std::cout << std::right;
+    std::cout << std::setw(20) << reservationId;
+    std::cout << std::setw(20) << timeSlot;
+    std::cout << std::setw(20) << dayIndex;
+    std::cout << std::setw(20) << username << "\n";
 }
 
 bool Reservation::collisionCheck(const Reservation &other) const
