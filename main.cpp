@@ -1,12 +1,18 @@
-#include "UserInterface.h"
 #include "School.h"
+#include "UserInterface.h"
+#include "FileWriter.h"
 int main(){
   UserInterface run;
   User u1;
   School s1;
+  FileWriter f1;
   int input;
   bool endProgram = false;
-  //code to handle login
+  
+  s1.loadAll();
+  
+  //Returns user object affiliated with username to u1
+  u1 = s1.login();
 
   if(u1.isAdmin())
   do{
@@ -67,5 +73,8 @@ int main(){
       break;
     }
   }while (!endProgram);
+
+  s1.saveAll();
+  
   return 0;
 }

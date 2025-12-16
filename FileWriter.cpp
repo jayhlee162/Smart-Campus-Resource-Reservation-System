@@ -29,15 +29,17 @@ bool FileWriter::loadResources(std::vector<Resource>& resources,
 
     while (getline(inFile, line)) {
         std::stringstream ss(line);
-        std::string id, name, type, capacityStr;
+        std::string idStr, nameStr, typeStr, capacityStr;
 
-        getline(ss, id, ',');
-        getline(ss, name, ',');
-        getline(ss, type, ',');
+        getline(ss, idStr, ',');
+        getline(ss, nameStr, ',');
+        getline(ss, typeStr, ',');
         getline(ss, capacityStr, ',');
 
         int capacity = std::stoi(capacityStr);
-        resources.emplace_back(id, name, type, capacity);
+        int id = std::stoi(idStr);
+        ResourceType type = strToResourceType(typeStr);
+        resources.emplace_back(id, nameStr, type, capacity);
     }
 
     inFile.close();
@@ -52,10 +54,10 @@ bool FileWriter::saveReservations(const std::vector<Reservation>& reservations,
 
     for (const auto& r : reservations) {
         outFile << r.getReservationId() << ","
-                << r.getUserId() << ","
+                << r.getUsername() << ","
                 << r.getResourceId() << ","
-                << r.getStartTime() << ","
-                << r.getEndTime() << "\n";
+                << r.getTimeSlot() << ","
+                << r.getDayIndex() << "\n";
     }
 
     outFile.close();
@@ -72,15 +74,20 @@ bool FileWriter::loadReservations(std::vector<Reservation>& reservations,
 
     while (getline(inFile, line)) {
         std::stringstream ss(line);
-        std::string resId, userId, resourceId, start, end;
+        std::string resIdStr, username, resourceIdStr, timeStr, dayStr;
 
-        getline(ss, resId, ',');
-        getline(ss, userId, ',');
-        getline(ss, resourceId, ',');
-        getline(ss, start, ',');
-        getline(ss, end, ',');
+        getline(ss, resIdStr, ',');
+        getline(ss, username, ',');
+        getline(ss, resourceIdStr, ',');
+        getline(ss, timeStr, ',');
+        getline(ss, dayStr, ',');
 
-        reservations.emplace_back(resId, userId, resourceId, start, end);
+        int rsvId = std::stoi(resIdStr);
+        int rscId = std::stoi(resourceIdStr);
+        int timeSlot = std::stoi(timeStr);
+        int dayIndex = std::stoi(dayStr);
+
+        reservations.emplace_back(rsvId, rscId, timeSlot, dayIndex, username);
     }
 
     inFile.close();
@@ -123,4 +130,13 @@ bool FileWriter::loadUsers(std::vector<User>& users,
 
     inFile.close();
     return true;
+}
+
+ResourceType FileWriter::strToResourceType(std::string typeName){
+    if(typeName == "Study Room") {return StudyRoom;}
+    if(typeName == "Lab Equipment") {return LabEquipment;}
+    if(typeName == "Practice Room") {return PracticeRoom;}
+    if(typeName == "Sports Court") {return SportsCourt;}
+    if(typeName == "Tutoring") {return Tutoring;}
+    else {return Unknown;}
 }

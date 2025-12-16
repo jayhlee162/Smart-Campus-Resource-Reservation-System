@@ -1,20 +1,33 @@
 #include "Reservation.h"
 #include <iostream>
+#include <iomanip>
+
+int Reservation::reservationIdCount = 0;
 
 Reservation::Reservation() : resourceId(-1), timeSlot(-1), dayIndex(-1) {}
-Reservation::Reservation(int id, int t, int d) : resourceId(id), timeSlot(t), dayIndex(d) {}
+Reservation::Reservation(int id, int t, int d, const std::string& username) : resourceId(id), timeSlot(t), dayIndex(d), reservationId(reservationIdCount++) {}
+Reservation::Reservation(int rsvId, int rscId, int time, int day, const std::string &u) : reservationId(rsvId), resourceId(rscId), timeSlot(time), dayIndex(day), username(u) {}
 
-int Reservation::getResourceId()
+int Reservation::getResourceId() const
 {
     return resourceId;
 }
-int Reservation::getTimeSlot()
+int Reservation::getTimeSlot() const
 {
     return timeSlot;
 }
-int Reservation::getDayIndex()
+int Reservation::getDayIndex() const
 {
     return dayIndex;
+}
+int Reservation::getReservationId() const
+{
+    return reservationId;
+}
+
+const std::string &Reservation::getUsername() const
+{
+    return username;
 }
 
 Reservation &Reservation::setResourceId(int id)
@@ -33,6 +46,26 @@ Reservation &Reservation::setDayIndex(int d)
     return *this;
 }
 
+void Reservation::cancelReservation() {
+    cancelled = true;
+}
+
+void Reservation::printReservationHeader() {
+    std::cout << std::right;
+    std::cout << std::setw(20) << "reservationId";
+    std::cout << std::setw(20) << "timeSlot";
+    std::cout << std::setw(20) << "dayIndex";
+    std::cout << std::setw(20) << "username" << "\n";
+}
+
+void Reservation::printReservation() {
+    std::cout << std::right;
+    std::cout << std::setw(20) << reservationId;
+    std::cout << std::setw(20) << timeSlot;
+    std::cout << std::setw(20) << dayIndex;
+    std::cout << std::setw(20) << username << "\n";
+}
+
 bool Reservation::collisionCheck(const Reservation &other) const
 {
     {
@@ -48,4 +81,3 @@ bool Reservation::collisionCheck(const Reservation &other) const
         return true;
     }
 }
-get fetch origin
