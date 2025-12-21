@@ -118,7 +118,7 @@ void School::createReservation(User user){
     }
     std::cin >> dayIndex;
     
-    std::cout << "Enter the hour of your reservation (0 - 23): ";
+    std::cout << "Enter the time of hour you would like your reservating to be(0 - 23): ";
     std::cin >> timeSlot;
     
     std::cout << "Select which resource to reserve:\n";
@@ -162,20 +162,71 @@ void School::printReservation(User)
 
 void School::printResources()
 {
-    std::cout << "running printResources\n";
+    std::cout << "Available Resources:\n";
+    for (int i = 0; i < resources.size(); i++)
+    {
+        std::cout << i << ") " << resources[i].getName() << "\n";
+    }
 }
 
 void School::addResource()
 {
-    std::cout << "running addResource\n";
+    std::string resourceName;
+    int id = resources.size();
+
+    std::cout << "Enter resource name: ";
+    std::cin.ignore(1000, '\n');
+    std::getline(std::cin, resourceName);
+
+    // type and capacity are hardcoded to simple defaults
+    resources.emplace_back(id, resourceName, ResourceType(), 1);
+
+    std::cout << "Resource added successfully.\n";
 }
+
+
 void School::removeResource()
 {
-    std::cout << "running removeResource\n";
+    int resourceIndex;
+
+    printResources();
+    std::cout << "Enter the ID of the resource to remove: ";
+    std::cin >> resourceIndex;
+
+    if (resourceIndex >= 0 && resourceIndex < resources.size())
+    {
+        resources.erase(resources.begin() + resourceIndex);
+        std::cout << "Resource removed successfully.\n";
+    }
+    else
+    {
+        std::cout << "Invalid resource ID.\n";
+    }
 }
+
 void School::editResource()
 {
-    std::cout << "running editResource\n";
+    int index;
+    std::string newName;
+
+    printResources();
+    std::cout << "Enter the ID of the resource to edit: ";
+    std::cin >> index;
+
+    if (index < 0 || index >= resources.size())
+    {
+        std::cout << "Invalid resource ID.\n";
+        return;
+    }
+
+    std::cout << "Enter new resource name: ";
+    std::cin.ignore(1000, '\n');
+    std::getline(std::cin, newName);
+
+    int id = resources[index].getId();
+
+    // replace resource with updated name
+    resources[index] = Resource(id, newName, ResourceType(), 1);
+
+    std::cout << "Resource updated successfully.\n";
 }
-
-
