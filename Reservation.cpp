@@ -5,7 +5,7 @@
 int Reservation::reservationIdCount = 0;
 
 Reservation::Reservation() : resourceId(-1), timeSlot(-1), dayIndex(-1) {}
-Reservation::Reservation(int id, int t, int d, const std::string& username) : resourceId(id), timeSlot(t), dayIndex(d), reservationId(reservationIdCount++) {}
+Reservation::Reservation(int id, int t, int d, const std::string& username) : resourceId(id), timeSlot(t), dayIndex(d), username(username), reservationId(reservationIdCount++) {}
 Reservation::Reservation(int rsvId, int rscId, int time, int day, const std::string &u) : reservationId(rsvId), resourceId(rscId), timeSlot(time), dayIndex(day), username(u) {}
 
 int Reservation::getResourceId() const

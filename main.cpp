@@ -6,7 +6,7 @@ int main(){
   User u1;
   School s1;
   FileWriter f1;
-  int input;
+  std::string input;
   bool endProgram = false;
   
   
@@ -19,15 +19,10 @@ int main(){
   if(u1.isAdmin())
   do{
     run.printAdminMenu();
-    std::cin >> input;
+    std::getline(std::cin, input);
     
-    if(std::cin.fail()){
-      std::cin.clear();
-      std::cin.ignore(1000, '\n');
-      std::cout << "Invalid input, please try againg";
-    }
-    else if(input > 0 && input < 9){
-      switch (input)
+    if(stoi(input) > 0 && stoi(input) < 9){
+      switch (stoi(input))
       {
       case 1:
         s1.createReservation(u1);
@@ -56,17 +51,16 @@ int main(){
       default:
         break;
       }
-
     }
   }while (!endProgram);
 
   else
   do{
     run.printStudentMenu();
-    std::cin >> input;
+    std::getline(std::cin, input);
     
-    if(input > 0 && input < 6){
-      switch (input)
+    if(stoi(input) > 0 && stoi(input) < 6){
+      switch (stoi(input))
       {
       case 1:
         s1.createReservation(u1);

@@ -1,4 +1,36 @@
 #include "School.h"
+#include <cctype>
+
+bool isInputJustNumberz(std::string input);
+
+int getIntFromUser() {
+    std::string input{};
+    while(true) {
+        std::getline(std::cin, input);
+        if (isInputJustNumberz(input)) {
+            return stoi(input);
+        }
+        std::cout << "Invalid input. Try again: ";
+    } 
+}
+
+bool isInputJustNumberz(std::string input) {
+    for (int i = 0; i < input.length(); i++) {
+        if (!std::isdigit(input[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void waitForEnter() {
+    std::cout << "Press enter to continue. . .";
+
+    std::string input;
+    std::getline(std::cin, input);
+    std::cout << "\n";
+}
+
 void School::loadAll()
 {
     FileWriter::loadUsers(users, "SCRRSusers.csv");
@@ -17,8 +49,8 @@ User School::login()
     std::string username = " ";
     bool reEnter = false;
     bool tryAgain = false;
-    int selection = 0;
-    int adminStatus;
+    int selection;
+    int adminStatus{0};
 
     do
     {
@@ -26,8 +58,8 @@ User School::login()
         std::cout << "Please select an option\n"
                   << "1. User Login\n"
                   << "2. Create account\n";
-        std::cin >> selection;
-        std::cin.ignore(1000, '\n');
+
+        selection = getIntFromUser();
 
         if (selection == 1)
         {
@@ -67,7 +99,7 @@ User School::login()
                 std::cout << "Please select user type:\n"
                           << "1. Admin\n"
                           << "2. Student\n";
-                std::cin >> adminStatus;
+                adminStatus = getIntFromUser();
 
                 if (adminStatus == 1)
                 {
@@ -99,7 +131,7 @@ User School::login()
 void School::createReservation(User user){
     // TODO: add logic to check for existing reservations. cancelled ones can be overwritten
     int timeSlot{0};
-    int dayIndex{0};
+    int dayIndex;
     int resourceId{0};
     
     std::string days[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
@@ -107,21 +139,25 @@ void School::createReservation(User user){
     for (int i = 0; i < 7; i++) {
         std::cout << i+1 << ") " << days[i] << "\n";
     }
-    std::cin >> dayIndex;
+    dayIndex = getIntFromUser();
     
     std::cout << "Enter the time of hour you would like your reservation to be(0 - 23): ";
-    std::cin >> timeSlot;
+    timeSlot = getIntFromUser();
     
     std::cout << "Select which resource to reserve:\n";
     for (int i = 0; i < resources.size(); i++) {
         std::cout << i+1 << ") " << resources[i].getName() << "\n";
     }
     
-    std::cin >> resourceId;
+    resourceId = getIntFromUser();
 
-    std::cout << "Username: " << user.getUsername() << "\n";
     Reservation* res = new Reservation(resourceId-1, timeSlot, dayIndex-1, user.getUsername());
     reservations.push_back(*res);
+    
+    std::cout << "Created a reservation!\n\n";
+    res->printReservation();
+    
+    waitForEnter();
 }
 
 void School::cancelReservation(User)
@@ -131,6 +167,9 @@ void School::cancelReservation(User)
     std::cout << "Enter the ID of the reservation you would like to cancel:\n";
     std::cin >> reservationId;
     reservations[reservationId].cancelReservation();
+    std::cout << "Reservation cancelled.";
+
+    waitForEnter();
 }
 
 void School::printReservation(User)
@@ -139,6 +178,9 @@ void School::printReservation(User)
     for (int i = 0; i < reservations.size(); i++) {
         reservations[i].printReservation();
     }
+    std::cout << '\n';
+    
+    waitForEnter();
 }
 
 void School::printResources()
