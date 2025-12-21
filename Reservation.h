@@ -34,4 +34,8 @@ public:
 
     // collision resolution
     bool collisionCheck(const Reservation &other) const;
+
+    void print(std::ostream &out) const;
+    friend std::ostream &operator<<(std::ostream &, const Reservation &);
+    bool operator==(const Reservation &);
 };

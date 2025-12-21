@@ -81,3 +81,23 @@ bool Reservation::collisionCheck(const Reservation &other) const
         return true;
     }
 }
+
+void Reservation::print(std::ostream &out) const {
+    out << "Reservation ID: " << this->reservationId << "\n" << "Party Name: " << this->username << "\n" << "Day: " << this->dayIndex << "\n" << "Time: " << this->timeSlot;
+}
+
+std::ostream &operator<<(std::ostream &out, const Reservation &reservation){
+    reservation.print(out);
+    return out;
+}
+
+bool Reservation::operator==(const Reservation &other){
+    if(this->resourceId == other.resourceId 
+        && this->timeSlot == other.timeSlot 
+        && this->dayIndex == other.dayIndex){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
