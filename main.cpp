@@ -25,7 +25,7 @@ int main(){
       switch (stoi(input))
       {
       case 1:
-        s1.createReservation(u1);
+        run.createReservation(u1, s1);
         break;
       case 2:
         s1.cancelReservation(u1);
@@ -63,7 +63,7 @@ int main(){
       switch (stoi(input))
       {
       case 1:
-        s1.createReservation(u1);
+        run.createReservation(u1, s1);
         break;
       case 2:
         s1.cancelReservation(u1);

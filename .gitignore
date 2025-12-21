@@ -4,6 +4,7 @@
 *.ilk
 *.log
 *.csv
+*.out
 
 .vscode/
 

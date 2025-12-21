@@ -5,6 +5,8 @@
 #include "Resource.h"
 #include "Reservation.h"
 #include "FileWriter.h"
+
+
 class School {
     private:
         std::vector<User> users;
@@ -15,7 +17,7 @@ class School {
         void loadAll();
         void saveAll();
         
-        void createReservation(User);
+        Reservation* createReservation(int, int, int, std::string);
         void cancelReservation(User);
         void printReservation(User);
         void printResources();
@@ -23,4 +25,5 @@ class School {
         void removeResource();
         void editResource();
         void initializeResources();
+        std::vector<Resource> getResources();
 };

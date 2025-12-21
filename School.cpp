@@ -1,7 +1,16 @@
 #include "School.h"
 #include <cctype>
 
-bool isInputJustNumberz(std::string input);
+
+bool isInputJustNumberz(std::string input) {
+    for (int i = 0; i < input.length(); i++) {
+        if (!std::isdigit(input[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
 
 int getIntFromUser() {
     std::string input{};
@@ -14,14 +23,6 @@ int getIntFromUser() {
     } 
 }
 
-bool isInputJustNumberz(std::string input) {
-    for (int i = 0; i < input.length(); i++) {
-        if (!std::isdigit(input[i])) {
-            return false;
-        }
-    }
-    return true;
-}
 
 void waitForEnter() {
     std::cout << "Press enter to continue. . .";
@@ -29,6 +30,10 @@ void waitForEnter() {
     std::string input;
     std::getline(std::cin, input);
     std::cout << "\n";
+}
+
+std::vector<Resource> School::getResources() {
+    return resources;
 }
 
 void School::loadAll()
@@ -128,36 +133,10 @@ User School::login()
     return User();
 }
 
-void School::createReservation(User user){
-    // TODO: add logic to check for existing reservations. cancelled ones can be overwritten
-    int timeSlot{0};
-    int dayIndex;
-    int resourceId{0};
-    
-    std::string days[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-    std::cout << "Enter day:\n";
-    for (int i = 0; i < 7; i++) {
-        std::cout << i+1 << ") " << days[i] << "\n";
-    }
-    dayIndex = getIntFromUser();
-    
-    std::cout << "Enter the time of hour you would like your reservation to be(0 - 23): ";
-    timeSlot = getIntFromUser();
-    
-    std::cout << "Select which resource to reserve:\n";
-    for (int i = 0; i < resources.size(); i++) {
-        std::cout << i+1 << ") " << resources[i].getName() << "\n";
-    }
-    
-    resourceId = getIntFromUser();
-
-    Reservation* res = new Reservation(resourceId-1, timeSlot, dayIndex-1, user.getUsername());
+Reservation* School::createReservation(int resourceId, int timeSlot, int dayIndex, std::string username){
+    Reservation* res = new Reservation(resourceId, timeSlot, dayIndex, username);
     reservations.push_back(*res);
-    
-    std::cout << "Created a reservation!\n\n";
-    res->printReservation();
-    
-    waitForEnter();
+    return res;
 }
 
 void School::cancelReservation(User)
