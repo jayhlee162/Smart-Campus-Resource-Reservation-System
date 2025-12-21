@@ -17,4 +17,7 @@ class Resource {
         ResourceType getType() const;
         int getCapacity() const;
         std::string typeToString (ResourceType type) const;
+        void print(std::ostream &out) const ;
+        friend std::ostream &operator<<(std::ostream &, const Resource &);
+        bool operator==(const Resource &other);
 };

@@ -37,3 +37,21 @@ std::string Resource::typeToString (ResourceType type) const {
             return "Unknown";
     }
 }
+
+void Resource::print(std::ostream &out) const {
+    out << "Resource ID: " << this->resourceId << "\n" << "Name: " << this->resourceName << "\n" << "Capactiy: " << this->capacity << "\n";
+}
+
+std::ostream &operator<<(std::ostream &out, const Resource &resource){
+    resource.print(out);
+    return out;
+}
+
+bool Resource::operator==(const Resource &other){
+    if(this->resourceName == other.resourceName) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
