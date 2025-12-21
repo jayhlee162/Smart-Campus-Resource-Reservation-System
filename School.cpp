@@ -1,4 +1,13 @@
 #include "School.h"
+
+void waitForEnter() {
+    std::cout << "Press enter to continue. . .";
+
+    std::string input;
+    std::getline(std::cin, input);
+    std::cout << "\n";
+}
+
 void School::loadAll()
 {
     FileWriter::loadUsers(users, "SCRRSusers.csv");
@@ -119,9 +128,13 @@ void School::createReservation(User user){
     
     std::cin >> resourceId;
 
-    std::cout << "Username: " << user.getUsername() << "\n";
     Reservation* res = new Reservation(resourceId-1, timeSlot, dayIndex-1, user.getUsername());
     reservations.push_back(*res);
+    
+    std::cout << "Created a reservation!\n\n";
+    res->printReservation();
+    
+    waitForEnter();
 }
 
 void School::cancelReservation(User)
@@ -131,6 +144,9 @@ void School::cancelReservation(User)
     std::cout << "Enter the ID of the reservation you would like to cancel:\n";
     std::cin >> reservationId;
     reservations[reservationId].cancelReservation();
+    std::cout << "Reservation cancelled.";
+
+    waitForEnter();
 }
 
 void School::printReservation(User)
@@ -139,6 +155,9 @@ void School::printReservation(User)
     for (int i = 0; i < reservations.size(); i++) {
         reservations[i].printReservation();
     }
+    std::cout << '\n';
+    
+    waitForEnter();
 }
 
 void School::printResources()
@@ -158,3 +177,5 @@ void School::editResource()
 {
     std::cout << "running editResource\n";
 }
+
+

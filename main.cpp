@@ -6,7 +6,7 @@ int main(){
   User u1;
   School s1;
   FileWriter f1;
-  int input;
+  std::string input;
   bool endProgram = false;
   
   s1.loadAll();
@@ -17,9 +17,9 @@ int main(){
   if(u1.isAdmin())
   do{
     run.printAdminMenu();
-    std::cin >> input;
+    std::getline(std::cin, input);
     
-    switch (input)
+    switch (stoi(input))
     {
     case 1:
       s1.createReservation(u1);
@@ -53,8 +53,8 @@ int main(){
   else
   do{
     run.printStudentMenu();
-    std::cin >> input;
-    switch (input)
+    std::getline(std::cin, input);
+    switch (stoi(input))
     {
     case 1:
       s1.createReservation(u1);
