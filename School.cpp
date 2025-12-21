@@ -109,7 +109,7 @@ void School::createReservation(User user){
     }
     std::cin >> dayIndex;
     
-    std::cout << "Enter the time of hour you would like your reservating to be(0 - 23): ";
+    std::cout << "Enter the time of hour you would like your reservation to be(0 - 23): ";
     std::cin >> timeSlot;
     
     std::cout << "Select which resource to reserve:\n";
@@ -210,4 +210,15 @@ void School::editResource()
     resources[index] = Resource(id, newName, ResourceType(), 1);
 
     std::cout << "Resource updated successfully.\n";
+}
+
+void School::initializeResources(){
+    if(resources.empty()){
+        resources.emplace_back(1, "Study Room", StudyRoom, 12);
+        resources.emplace_back(1, "Lab Equipment", LabEquipment, 4);
+        resources.emplace_back(1, "Practice Room", PracticeRoom, 20);
+        resources.emplace_back(1, "Sports Court", SportsCourt, 30);
+        resources.emplace_back(1, "Tutoring", Tutoring, 2);
+        resources.emplace_back(1, "Unknown", Unknown, 1000);
+    }
 }

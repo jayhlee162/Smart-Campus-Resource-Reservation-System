@@ -1,2 +1,11 @@
-*.out
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.log
 *.csv
+
+.vscode/
+
+Debug/
+Release/

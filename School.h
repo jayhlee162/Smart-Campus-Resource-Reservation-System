@@ -22,4 +22,5 @@ class School {
         void addResource();
         void removeResource();
         void editResource();
+        void initializeResources();
 };

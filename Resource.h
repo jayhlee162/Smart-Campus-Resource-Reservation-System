@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-enum ResourceType{StudyRoom, LabEquipment, PracticeRoom, SportsCourt, Tutoring, Unknown};
+enum ResourceType{Unknown, StudyRoom, LabEquipment, PracticeRoom, SportsCourt, Tutoring};
 
 class Resource {
     private:
