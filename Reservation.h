@@ -23,6 +23,7 @@ public:
     const std::string &getUsername() const;
     int getTimeSlot() const;
     int getDayIndex() const;
+    bool isCancelled() const;
 
     Reservation &setResourceId(int id);
     Reservation &setTimeSlot(int t);

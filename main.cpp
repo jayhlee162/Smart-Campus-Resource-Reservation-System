@@ -25,13 +25,13 @@ int main(){
       switch (input)
       {
       case 1:
-        run.createReservation(user, school);
+        run.createReservationInteractive(user, school);
         break;
       case 2:
-        run.cancelReservation(user, school);
+        run.cancelReservationInteractive(user, school);
         break;
       case 3:
-        school.printReservation(user);
+        school.printAllReservations(user);
         break;
       case 4:
         school.printResources();
@@ -63,13 +63,13 @@ int main(){
       switch (input)
       {
       case 1:
-        run.createReservation(user, school);
+        run.createReservationInteractive(user, school);
         break;
       case 2:
-        run.cancelReservation(user, school);
+        run.cancelReservationInteractive(user, school);
         break;
       case 3:
-        school.printReservation(user);
+        school.printAllReservations(user);
         break;
       case 4:
         school.printResources();

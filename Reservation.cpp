@@ -46,6 +46,10 @@ Reservation &Reservation::setDayIndex(int d)
     return *this;
 }
 
+bool Reservation::isCancelled() const {
+    return cancelled;
+}
+
 void Reservation::cancelReservation() {
     cancelled = true;
 }

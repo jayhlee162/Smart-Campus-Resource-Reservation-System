@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <optional>
 #include "User.h"
 #include "Resource.h"
 #include "Reservation.h"
@@ -17,13 +18,15 @@ class School {
         void loadAll();
         void saveAll();
         
-        Reservation& createReservation(int, int, int, std::string);
+        std::optional<Reservation> createReservation(int, int, int, std::string);
         void cancelReservation(int reservationId);
-        void printReservation(User);
+        void printAllReservations(User);
         void printResources();
         void addResource();
         void removeResource();
         void editResource();
         void initializeResources();
         std::vector<Resource> getResources();
+        
+        bool isReservedAlready(int resourceId, int timeSlot, int dayIndex) const;
 };

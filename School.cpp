@@ -1,5 +1,6 @@
 #include "School.h"
 #include <cctype>
+#include <optional>
 
 
 bool isInputJustNumberz(std::string input) {
@@ -133,21 +134,27 @@ User School::login()
     return User();
 }
 
-Reservation& School::createReservation(int resourceId, int timeSlot, int dayIndex, std::string username){
-    reservations.emplace_back(resourceId, timeSlot, dayIndex, username);
+std::optional<Reservation> School::createReservation(int resourceId, int timeSlot, int dayIndex, std::string username){
+    Reservation res{resourceId, timeSlot, dayIndex, username};
+
+    if (isReservedAlready(resourceId, timeSlot, dayIndex)) {
+        return std::nullopt;
+    }
+
+    reservations.push_back(res);
     return reservations.back();
 }
 
 void School::cancelReservation(int reservationId)
 {
-    reservations[reservationId].cancelReservation();
+    reservations[reservationId-1].cancelReservation();
 }
 
-void School::printReservation(User)
+void School::printAllReservations(User)
 {
-    std::cout << "reservations size: " << reservations.size() << '\n';
     Reservation::printReservationHeader();
     for (int i = 0; i < reservations.size(); i++) {
+        if (reservations[i].isCancelled()) continue;
         reservations[i].printReservation();
     }
     std::cout << '\n';
@@ -235,4 +242,15 @@ void School::initializeResources(){
         resources.emplace_back(1, "Tutoring", Tutoring, 2);
         resources.emplace_back(1, "Unknown", Unknown, 1000);
     }
+}
+
+bool School::isReservedAlready(int resourceId, int timeSlot, int dayIndex) const {
+    for (int i = 0; i < reservations.size(); i++) {
+        if (reservations[i].getResourceId() == resourceId && 
+            reservations[i].getTimeSlot() == timeSlot &&
+            reservations[i].getDayIndex() == dayIndex) {
+                return true;
+            }
+    }
+    return false;
 }

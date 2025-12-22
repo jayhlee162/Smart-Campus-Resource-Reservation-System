@@ -14,6 +14,6 @@ class UserInterface {
         void printStudentMenu();
         void waitForEnter();
 
-        void createReservation(User user, School& school);
-        void cancelReservation(User user, School& school);
+        void createReservationInteractive(User& user, School& school);
+        void cancelReservationInteractive(User& user, School& school);
 };
