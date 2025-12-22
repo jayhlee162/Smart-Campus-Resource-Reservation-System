@@ -19,10 +19,10 @@ class School {
         void saveAll();
         
         std::optional<Reservation> createReservation(int, int, int, std::string);
-        void cancelReservation(int reservationId);
+        bool cancelReservation(int reservationId);
         void printAllReservations(User);
         void printResources();
-        void addResource();
+        void addResource(std::string resourceName, ResourceType resourceType, int capacity);
         void removeResource();
         void editResource();
         void initializeResources();

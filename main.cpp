@@ -19,7 +19,7 @@ int main(){
   if(user.isAdmin())
   do{
     run.printAdminMenu();
-    input = UserInterface::getIntFromUser();
+    input = run.getIntFromUser();
     
     if(input > 0 && input < 9){
       switch (input)
@@ -32,12 +32,13 @@ int main(){
         break;
       case 3:
         school.printAllReservations(user);
+        run.waitForEnter();
         break;
       case 4:
         school.printResources();
         break;
       case 5:
-        school.addResource();
+        run.addResourceInteractive(school);
         break;
       case 6:
         school.removeResource();
@@ -57,7 +58,7 @@ int main(){
   else
   do{
     run.printStudentMenu();
-    input = UserInterface::getIntFromUser();
+    input = run.getIntFromUser();
     
     if(input > 0 && input < 6){
       switch (input)
@@ -70,6 +71,7 @@ int main(){
         break;
       case 3:
         school.printAllReservations(user);
+        run.waitForEnter();
         break;
       case 4:
         school.printResources();

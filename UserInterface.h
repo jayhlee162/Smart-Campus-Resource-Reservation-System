@@ -16,4 +16,5 @@ class UserInterface {
 
         void createReservationInteractive(User& user, School& school);
         void cancelReservationInteractive(User& user, School& school);
+        void addResourceInteractive(School& school);
 };

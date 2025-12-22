@@ -24,6 +24,7 @@ public:
     int getTimeSlot() const;
     int getDayIndex() const;
     bool isCancelled() const;
+    static void incrementIdCount();
 
     Reservation &setResourceId(int id);
     Reservation &setTimeSlot(int t);

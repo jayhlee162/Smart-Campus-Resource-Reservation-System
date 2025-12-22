@@ -54,19 +54,24 @@ void Reservation::cancelReservation() {
     cancelled = true;
 }
 
+void Reservation::incrementIdCount() {
+    reservationIdCount++;
+}
+
 void Reservation::printReservationHeader() {
     std::cout << std::right;
     std::cout << std::setw(20) << "reservationId";
-    std::cout << std::setw(20) << "timeSlot";
-    std::cout << std::setw(20) << "dayIndex";
+    std::cout << std::setw(20) << "hour";
+    std::cout << std::setw(20) << "day";
     std::cout << std::setw(20) << "username" << "\n";
 }
 
 void Reservation::printReservation() {
+    std::string days[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     std::cout << std::right;
     std::cout << std::setw(20) << reservationId;
     std::cout << std::setw(20) << timeSlot;
-    std::cout << std::setw(20) << dayIndex;
+    std::cout << std::setw(20) << days[dayIndex];
     std::cout << std::setw(20) << username << "\n";
 }
 

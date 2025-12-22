@@ -135,19 +135,23 @@ User School::login()
 }
 
 std::optional<Reservation> School::createReservation(int resourceId, int timeSlot, int dayIndex, std::string username){
-    Reservation res{resourceId, timeSlot, dayIndex, username};
-
     if (isReservedAlready(resourceId, timeSlot, dayIndex)) {
         return std::nullopt;
     }
+
+    Reservation res{resourceId, timeSlot, dayIndex, username};
 
     reservations.push_back(res);
     return reservations.back();
 }
 
-void School::cancelReservation(int reservationId)
+bool School::cancelReservation(int reservationId)
 {
-    reservations[reservationId-1].cancelReservation();
+    if (reservationId < reservations.size() && reservationId >=0) {
+        reservations[reservationId].cancelReservation();
+        return true;
+    }
+    return false;
 }
 
 void School::printAllReservations(User)
@@ -157,9 +161,8 @@ void School::printAllReservations(User)
         if (reservations[i].isCancelled()) continue;
         reservations[i].printReservation();
     }
+
     std::cout << '\n';
-    
-    waitForEnter();
 }
 
 void School::printResources()
@@ -171,19 +174,10 @@ void School::printResources()
     }
 }
 
-void School::addResource()
+void School::addResource(std::string resourceName, ResourceType resourceType, int capacity)
 {
-    std::string resourceName;
     int id = resources.size();
-
-    std::cout << "Enter resource name: ";
-    std::cin.ignore(1000, '\n');
-    std::getline(std::cin, resourceName);
-
-    // type and capacity are hardcoded to simple defaults
-    resources.emplace_back(id, resourceName, ResourceType(), 1);
-
-    std::cout << "Resource added successfully.\n";
+    resources.emplace_back(id, resourceName, resourceType, capacity);
 }
 
 
@@ -244,13 +238,25 @@ void School::initializeResources(){
     }
 }
 
+
+/*
+    Checks if a resource has already been reserved by comparing the id, day and
+    time to existing reservations. Ignores cancelled reservations.
+*/
 bool School::isReservedAlready(int resourceId, int timeSlot, int dayIndex) const {
+
     for (int i = 0; i < reservations.size(); i++) {
+
+        if (reservations[i].isCancelled()) continue;
+
         if (reservations[i].getResourceId() == resourceId && 
             reservations[i].getTimeSlot() == timeSlot &&
             reservations[i].getDayIndex() == dayIndex) {
+
                 return true;
+
             }
     }
+
     return false;
 }

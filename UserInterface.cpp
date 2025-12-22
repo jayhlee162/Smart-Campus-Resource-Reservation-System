@@ -107,8 +107,24 @@ void UserInterface::cancelReservationInteractive(User& user, School& school)
 
     std::cout << "Enter the ID of the reservation you would like to cancel:\n";
     reservationId = getIntFromUser();
-    school.cancelReservation(reservationId);
-    std::cout << "Reservation cancelled. ";
+    if (school.cancelReservation(reservationId)) {
+        std::cout << "Reservation cancelled. ";
+    } else {
+        std::cout << "Error: no reservation with that ID. ";
+    }
 
     waitForEnter();
+}
+
+void UserInterface::addResourceInteractive(School& school) {
+    std::string resourceName;
+
+    std::cout << "Enter resource name: ";
+    std::getline(std::cin, resourceName);
+
+    // type and capacity are hardcoded to simple defaults
+    school.addResource(resourceName, ResourceType(), 1);
+
+    std::cout << "Resource added successfully.\n";
+    
 }

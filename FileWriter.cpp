@@ -88,6 +88,7 @@ bool FileWriter::loadReservations(std::vector<Reservation>& reservations,
         int dayIndex = std::stoi(dayStr);
 
         reservations.emplace_back(rsvId, rscId, timeSlot, dayIndex, username);
+        Reservation::incrementIdCount();
     }
 
     inFile.close();
