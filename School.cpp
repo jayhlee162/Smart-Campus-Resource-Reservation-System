@@ -229,12 +229,12 @@ void School::editResource()
 
 void School::initializeResources(){
     if(resources.empty()){
-        resources.emplace_back(1, "Study Room", StudyRoom, 12);
+        resources.emplace_back(0, "Study Room", StudyRoom, 12);
         resources.emplace_back(1, "Lab Equipment", LabEquipment, 4);
-        resources.emplace_back(1, "Practice Room", PracticeRoom, 20);
-        resources.emplace_back(1, "Sports Court", SportsCourt, 30);
-        resources.emplace_back(1, "Tutoring", Tutoring, 2);
-        resources.emplace_back(1, "Unknown", Unknown, 1000);
+        resources.emplace_back(2, "Practice Room", PracticeRoom, 20);
+        resources.emplace_back(3, "Sports Court", SportsCourt, 30);
+        resources.emplace_back(4, "Tutoring", Tutoring, 2);
+        resources.emplace_back(5, "Unknown", Unknown, 1000);
     }
 }
 
