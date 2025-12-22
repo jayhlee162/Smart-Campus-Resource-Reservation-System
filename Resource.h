@@ -27,6 +27,7 @@ public:
     Resource(int id, std::string name, ResourceType type, int capacity);
     int getId() const;
     std::string getName() const;
+    void setName(std::string name);
     ResourceType getType() const;
     int getCapacity() const;
     std::string typeToString(ResourceType type) const;

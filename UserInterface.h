@@ -21,4 +21,5 @@ public:
     void cancelReservationInteractive(User &user, School &school);
     void addResourceInteractive(School &school);
     void removeResourceInteractive(School &school);
+    void editResourceInteractive(School &school);
 };

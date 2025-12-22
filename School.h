@@ -30,7 +30,7 @@ public:
     bool removeResource(int resourceIndex);
     void editResource();
     void initializeResources();
-    std::vector<Resource> getResources();
+    std::vector<Resource>& getResources();
 
     bool isReservedAlready(int resourceId, int timeSlot, int dayIndex) const;
 };

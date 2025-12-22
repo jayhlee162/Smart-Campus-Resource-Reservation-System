@@ -36,6 +36,7 @@ int main(){
         break;
       case 4:
         school.printResources();
+        run.waitForEnter();
         break;
       case 5:
         run.addResourceInteractive(school);
@@ -44,7 +45,7 @@ int main(){
         run.removeResourceInteractive(school);
         break;
       case 7:
-        school.editResource();
+        run.editResourceInteractive(school);
         break;
       case 8:
         endProgram = true;

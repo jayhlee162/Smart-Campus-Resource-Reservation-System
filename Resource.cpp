@@ -13,6 +13,11 @@ std::string Resource::getName() const{
     return resourceName;
 }
 
+void Resource::setName(std::string newName)
+{
+    resourceName = newName;
+}
+
 ResourceType Resource::getType() const {
     return type;
 }

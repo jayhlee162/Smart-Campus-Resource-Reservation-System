@@ -157,3 +157,32 @@ void UserInterface::removeResourceInteractive(School &school)
     }
     
 }
+
+
+void UserInterface::editResourceInteractive(School& school)
+{
+    int index;
+    std::string newName;
+    std::vector<Resource> resources = school.getResources();
+
+    school.printResources();
+    std::cout << "Enter the ID of the resource to edit: ";
+    index = getIntFromUser();
+
+    if (index < 0 || index >= resources.size())
+    {
+        std::cout << "Invalid resource ID. ";
+        waitForEnter();
+        return;
+    }
+
+    std::cout << "Enter new resource name: ";
+    std::getline(std::cin, newName);
+
+    // replace resource with updated name
+    resources[index].setName(newName);
+
+    std::cout << "Resource updated successfully. ";
+    waitForEnter();
+}
+

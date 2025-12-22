@@ -32,9 +32,10 @@ void waitForEnter() {
     std::cout << "\n";
 }
 
-std::vector<Resource> School::getResources() {
+std::vector<Resource>& School::getResources() {
     return resources;
 }
+
 
 void School::loadAll()
 {
@@ -161,6 +162,8 @@ void School::printAllReservations(User)
     std::cout << '\n';
 }
 
+
+
 void School::printResources()
 {
     std::cout << "Available Resources:\n";
@@ -170,6 +173,7 @@ void School::printResources()
     }
 }
 
+
 void School::addResource(std::string resourceName, ResourceType resourceType, int capacity)
 {
     int id = resources.size();
@@ -177,7 +181,8 @@ void School::addResource(std::string resourceName, ResourceType resourceType, in
 }
 
 
-/* Removes a resource at the provided index. Returns true if successful, and false
+/* 
+    Removes a resource at the provided index. Returns true if successful, and false
     if the index is out of bounds.
 */
 bool School::removeResource(int resourceIndex)
@@ -190,6 +195,7 @@ bool School::removeResource(int resourceIndex)
 
     return false;
 }
+
 
 void School::editResource()
 {
@@ -218,6 +224,11 @@ void School::editResource()
     std::cout << "Resource updated successfully.\n";
 }
 
+
+/* 
+    Used for creating default resources when program starts up, so that
+    they don't have to be manually input each time.
+*/
 void School::initializeResources(){
     if(resources.empty()){
         resources.emplace_back(0, "Study Room", StudyRoom, 12);
@@ -251,3 +262,4 @@ bool School::isReservedAlready(int resourceId, int timeSlot, int dayIndex) const
 
     return false;
 }
+
