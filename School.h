@@ -27,7 +27,7 @@ public:
     void printAllReservations(User);
     void printResources();
     void addResource(std::string resourceName, ResourceType resourceType, int capacity);
-    void removeResource();
+    bool removeResource(int resourceIndex);
     void editResource();
     void initializeResources();
     std::vector<Resource> getResources();

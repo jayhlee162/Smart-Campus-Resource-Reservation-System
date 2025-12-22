@@ -68,7 +68,6 @@ void UserInterface::printStudentMenu()
 
 void UserInterface::createReservationInteractive(User &user, School &school)
 {
-    // TODO: add logic to check for existing reservations. cancelled ones can be overwritten
     int timeSlot{0};
     int dayIndex;
     int resourceId{0};
@@ -138,4 +137,23 @@ void UserInterface::addResourceInteractive(School &school)
     school.addResource(resourceName, ResourceType(), 1);
 
     std::cout << "Resource added successfully.\n";
+}
+
+void UserInterface::removeResourceInteractive(School &school)
+{
+    int resourceIndex;
+
+    school.printResources();
+    std::cout << "Enter the ID of the resource to remove: ";
+    resourceIndex = getIntFromUser();
+    
+    if (school.removeResource(resourceIndex)) {
+        std::cout << "Resource removed successfully.\n";
+    }
+
+    else
+    {
+        std::cout << "Invalid resource ID.\n";
+    }
+    
 }

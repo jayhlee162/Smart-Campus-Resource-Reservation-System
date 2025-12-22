@@ -41,7 +41,7 @@ int main(){
         run.addResourceInteractive(school);
         break;
       case 6:
-        school.removeResource();
+        run.removeResourceInteractive(school);
         break;
       case 7:
         school.editResource();

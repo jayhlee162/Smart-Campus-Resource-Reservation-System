@@ -177,23 +177,18 @@ void School::addResource(std::string resourceName, ResourceType resourceType, in
 }
 
 
-void School::removeResource()
+/* Removes a resource at the provided index. Returns true if successful, and false
+    if the index is out of bounds.
+*/
+bool School::removeResource(int resourceIndex)
 {
-    int resourceIndex;
-
-    printResources();
-    std::cout << "Enter the ID of the resource to remove: ";
-    std::cin >> resourceIndex;
-
     if (resourceIndex >= 0 && resourceIndex < resources.size())
     {
         resources.erase(resources.begin() + resourceIndex);
-        std::cout << "Resource removed successfully.\n";
+        return true;
     }
-    else
-    {
-        std::cout << "Invalid resource ID.\n";
-    }
+
+    return false;
 }
 
 void School::editResource()
