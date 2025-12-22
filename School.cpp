@@ -1,6 +1,5 @@
 #include "School.h"
 #include <cctype>
-#include <optional>
 
 
 bool isInputJustNumberz(std::string input) {
@@ -134,10 +133,7 @@ User School::login()
     return User();
 }
 
-std::optional<Reservation> School::createReservation(int resourceId, int timeSlot, int dayIndex, std::string username){
-    if (isReservedAlready(resourceId, timeSlot, dayIndex)) {
-        return std::nullopt;
-    }
+Reservation& School::createReservation(int resourceId, int timeSlot, int dayIndex, std::string username){
 
     Reservation res{resourceId, timeSlot, dayIndex, username};
 

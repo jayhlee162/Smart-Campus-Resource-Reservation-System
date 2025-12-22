@@ -85,17 +85,17 @@ void UserInterface::createReservationInteractive(User& user, School& school){
     
     resourceId = getIntFromUser();
     
-    auto res = school.createReservation(resourceId-1, timeSlot, dayIndex-1, user.getUsername());
-    
-    if (!res) {
+    if (school.isReservedAlready(resourceId, timeSlot, dayIndex)) {
         std::cout << "This resource is already reserved at this time.\n";
         waitForEnter();
         return;
     }
 
+    Reservation res = school.createReservation(resourceId-1, timeSlot, dayIndex-1, user.getUsername());
+    
     std::cout << "Created a reservation!\n\n";
     Reservation::printReservationHeader();
-    res->printReservation();
+    res.printReservation();
     
     waitForEnter();
 }
