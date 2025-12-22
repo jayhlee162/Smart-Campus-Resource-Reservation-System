@@ -85,7 +85,7 @@ void UserInterface::createReservationInteractive(User& user, School& school){
     
     resourceId = getIntFromUser();
     
-    if (school.isReservedAlready(resourceId, timeSlot, dayIndex)) {
+    if (school.isReservedAlready(resourceId-1, timeSlot, dayIndex-1)) {
         std::cout << "This resource is already reserved at this time.\n";
         waitForEnter();
         return;
