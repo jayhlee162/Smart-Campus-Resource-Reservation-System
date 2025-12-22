@@ -14,6 +14,7 @@ public:
     static bool isInputJustNumbers(std::string input);
     static int getIntFromUser();
     void printAdminMenu();
+    User loginInteractive(School& school);
     void printStudentMenu();
     void waitForEnter();
 

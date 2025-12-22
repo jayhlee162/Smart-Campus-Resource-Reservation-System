@@ -14,7 +14,7 @@ int main(){
   school.initializeResources();
   
   //Returns user object affiliated with username to user
-  user = school.login();
+  user = run.loginInteractive(school);
 
   if(user.isAdmin())
   do{

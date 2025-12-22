@@ -1,5 +1,91 @@
 #include "UserInterface.h"
 
+User UserInterface::loginInteractive(School& school)
+{
+    std::string username = " ";
+    bool reEnter = false;
+    bool tryAgain = false;
+    int selection;
+    int adminStatus{0};
+    std::vector<User> users = school.getUsers();
+
+    do
+    {
+        reEnter = false;
+        std::cout << "Please select an option\n"
+                  << "1. User Login\n"
+                  << "2. Create account\n";
+
+        selection = getIntFromUser();
+
+        if (selection == 1)
+        {
+            std::cout << "Enter username: ";
+            std::getline(std::cin, username);
+
+            // returns user if username exists
+            for (int i = 0; i < users.size(); i++)
+            {
+                if (users[i].getUsername() == username)
+                {
+                    return users[i];
+                }
+            }
+            std::cout << "Username incorrect or does not exist. Please re-enter or create an account.\n\n";
+            reEnter = true;
+        }
+        else if (selection == 2)
+        {
+            do
+            {
+                tryAgain = false;
+                std::cout << "Username: ";
+                std::getline(std::cin, username);
+                for (int i = 0; i < users.size(); i++)
+                {
+                    if (users[i].getUsername() == username)
+                    {
+                        std::cout << "Username already taken. Please try again\n";
+                        tryAgain = true;
+                    }
+                }
+            } while (tryAgain);
+
+            do
+            {
+                std::cout << "Please select user type:\n"
+                          << "1. Admin\n"
+                          << "2. Student\n";
+                adminStatus = getIntFromUser();
+
+                if (adminStatus == 1)
+                {
+                    users.emplace_back(username, true);
+                }
+                else if (adminStatus == 2)
+                {
+                    users.emplace_back(username, false);
+                }
+                else
+                {
+                    std::cout << "Invalid selection, please try again.\n";
+                }
+            } while (adminStatus < 1 || adminStatus > 2);
+
+            return users.back();
+        }
+        else
+        {
+            std::cout << "invalid selection\n";
+            reEnter = true;
+        }
+
+    } while (reEnter);
+
+    return User();
+}
+
+
 bool UserInterface::isInputJustNumbers(std::string input)
 {
     for (int i = 0; i < input.length(); i++)
@@ -11,6 +97,7 @@ bool UserInterface::isInputJustNumbers(std::string input)
     }
     return true;
 }
+
 
 int UserInterface::getIntFromUser()
 {
@@ -26,6 +113,7 @@ int UserInterface::getIntFromUser()
     }
 }
 
+
 void UserInterface::waitForEnter()
 {
     std::cout << "Press enter to continue. . .";
@@ -34,6 +122,7 @@ void UserInterface::waitForEnter()
     std::getline(std::cin, input);
     std::cout << "\n";
 }
+
 
 void UserInterface::printAdminMenu()
 {
@@ -52,6 +141,7 @@ void UserInterface::printAdminMenu()
               << "8. Exit\n";
 }
 
+
 void UserInterface::printStudentMenu()
 {
     std::cout << std::string(54, '-') + '\n'
@@ -65,6 +155,7 @@ void UserInterface::printStudentMenu()
               << "4. List Available Resources\n"
               << "5. Exit\n";
 }
+
 
 void UserInterface::createReservationInteractive(User &user, School &school)
 {
@@ -107,6 +198,7 @@ void UserInterface::createReservationInteractive(User &user, School &school)
     waitForEnter();
 }
 
+
 void UserInterface::cancelReservationInteractive(User &user, School &school)
 {
     // TODO: check if user is admin, if not they can only delete their own reservations
@@ -126,6 +218,7 @@ void UserInterface::cancelReservationInteractive(User &user, School &school)
     waitForEnter();
 }
 
+
 void UserInterface::addResourceInteractive(School &school)
 {
     std::string resourceName;
@@ -138,6 +231,7 @@ void UserInterface::addResourceInteractive(School &school)
 
     std::cout << "Resource added successfully.\n";
 }
+
 
 void UserInterface::removeResourceInteractive(School &school)
 {

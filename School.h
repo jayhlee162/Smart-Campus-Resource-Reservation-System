@@ -31,6 +31,7 @@ public:
     void editResource();
     void initializeResources();
     std::vector<Resource>& getResources();
+    std::vector<User>& getUsers();
 
     bool isReservedAlready(int resourceId, int timeSlot, int dayIndex) const;
 };
