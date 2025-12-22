@@ -1,3 +1,6 @@
+// Reservation.h
+// Manages reservation information
+
 #pragma once
 #include <string>
 

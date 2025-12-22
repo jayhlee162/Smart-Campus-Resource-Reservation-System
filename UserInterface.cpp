@@ -1,29 +1,33 @@
 #include "UserInterface.h"
 
-
-bool UserInterface::isInputJustNumbers(std::string input) {
-    for (int i = 0; i < input.length(); i++) {
-        if (!std::isdigit(input[i])) {
+bool UserInterface::isInputJustNumbers(std::string input)
+{
+    for (int i = 0; i < input.length(); i++)
+    {
+        if (!std::isdigit(input[i]))
+        {
             return false;
         }
     }
     return true;
 }
 
-
-int UserInterface::getIntFromUser() {
+int UserInterface::getIntFromUser()
+{
     std::string input{};
-    while(true) {
+    while (true)
+    {
         std::getline(std::cin, input);
-        if (isInputJustNumbers(input)) {
+        if (isInputJustNumbers(input))
+        {
             return stoi(input);
         }
         std::cout << "Input must be a number. Try again: ";
-    } 
+    }
 }
 
-
-void UserInterface::waitForEnter() {
+void UserInterface::waitForEnter()
+{
     std::cout << "Press enter to continue. . .";
 
     std::string input;
@@ -31,8 +35,8 @@ void UserInterface::waitForEnter() {
     std::cout << "\n";
 }
 
-
-void UserInterface::printAdminMenu(){
+void UserInterface::printAdminMenu()
+{
     std::cout << std::string(54, '-') + '\n'
               << "| Welcome to the Campus Resource Reservation System! |\n"
               << std::string(54, '-') + '\n'
@@ -48,8 +52,8 @@ void UserInterface::printAdminMenu(){
               << "8. Exit\n";
 }
 
-
-void UserInterface::printStudentMenu(){
+void UserInterface::printStudentMenu()
+{
     std::cout << std::string(54, '-') + '\n'
               << "| Welcome to the Campus Resource Reservation System! |\n"
               << std::string(54, '-') + '\n'
@@ -62,61 +66,69 @@ void UserInterface::printStudentMenu(){
               << "5. Exit\n";
 }
 
-void UserInterface::createReservationInteractive(User& user, School& school){
+void UserInterface::createReservationInteractive(User &user, School &school)
+{
     // TODO: add logic to check for existing reservations. cancelled ones can be overwritten
     int timeSlot{0};
     int dayIndex;
     int resourceId{0};
-    
+
     std::string days[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     std::cout << "Enter day:\n";
-    for (int i = 0; i < 7; i++) {
-        std::cout << i+1 << ") " << days[i] << "\n";
+    for (int i = 0; i < 7; i++)
+    {
+        std::cout << i + 1 << ") " << days[i] << "\n";
     }
     dayIndex = getIntFromUser();
-    
+
     std::cout << "Enter the time of hour you would like your reservation to be(0 - 23): ";
     timeSlot = getIntFromUser();
-    
+
     std::cout << "Select which resource to reserve:\n";
-    for (int i = 0; i < school.getResources().size(); i++) {
-        std::cout << i+1 << ") " << school.getResources()[i].getName() << "\n";
+    for (int i = 0; i < school.getResources().size(); i++)
+    {
+        std::cout << i + 1 << ") " << school.getResources()[i].getName() << "\n";
     }
-    
+
     resourceId = getIntFromUser();
-    
-    if (school.isReservedAlready(resourceId, timeSlot, dayIndex)) {
+
+    if (school.isReservedAlready(resourceId, timeSlot, dayIndex))
+    {
         std::cout << "This resource is already reserved at this time.\n";
         waitForEnter();
         return;
     }
 
-    Reservation res = school.createReservation(resourceId-1, timeSlot, dayIndex-1, user.getUsername());
-    
+    Reservation res = school.createReservation(resourceId - 1, timeSlot, dayIndex - 1, user.getUsername());
+
     std::cout << "Created a reservation!\n\n";
     Reservation::printReservationHeader();
     res.printReservation();
-    
+
     waitForEnter();
 }
 
-void UserInterface::cancelReservationInteractive(User& user, School& school)
+void UserInterface::cancelReservationInteractive(User &user, School &school)
 {
     // TODO: check if user is admin, if not they can only delete their own reservations
     int reservationId{0};
 
     std::cout << "Enter the ID of the reservation you would like to cancel:\n";
     reservationId = getIntFromUser();
-    if (school.cancelReservation(reservationId)) {
+    if (school.cancelReservation(reservationId))
+    {
         std::cout << "Reservation cancelled. ";
-    } else {
+    }
+    else
+    {
         std::cout << "Error: no reservation with that ID. ";
     }
 
     waitForEnter();
 }
 
-void UserInterface::addResourceInteractive(School& school) {
+void UserInterface::addResourceInteractive(School &school)
+{
     std::string resourceName;
 
     std::cout << "Enter resource name: ";
@@ -126,5 +138,4 @@ void UserInterface::addResourceInteractive(School& school) {
     school.addResource(resourceName, ResourceType(), 1);
 
     std::cout << "Resource added successfully.\n";
-    
 }

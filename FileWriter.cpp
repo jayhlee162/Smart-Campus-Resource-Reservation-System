@@ -3,12 +3,15 @@
 #include <sstream>
 
 // -------------------- RESOURCES --------------------
-bool FileWriter::saveResources(const std::vector<Resource>& resources,
-                               const std::string& filename) {
+bool FileWriter::saveResources(const std::vector<Resource> &resources,
+                               const std::string &filename)
+{
     std::ofstream outFile(filename);
-    if (!outFile) return false;
+    if (!outFile)
+        return false;
 
-    for (const auto& r : resources) {
+    for (const auto &r : resources)
+    {
         outFile << r.getId() << ","
                 << r.getName() << ","
                 << r.getType() << ","
@@ -19,15 +22,18 @@ bool FileWriter::saveResources(const std::vector<Resource>& resources,
     return true;
 }
 
-bool FileWriter::loadResources(std::vector<Resource>& resources,
-                               const std::string& filename) {
+bool FileWriter::loadResources(std::vector<Resource> &resources,
+                               const std::string &filename)
+{
     std::ifstream inFile(filename);
-    if (!inFile) return false;
+    if (!inFile)
+        return false;
 
     resources.clear();
     std::string line;
 
-    while (getline(inFile, line)) {
+    while (getline(inFile, line))
+    {
         std::stringstream ss(line);
         std::string idStr, nameStr, typeStr, capacityStr;
 
@@ -47,12 +53,15 @@ bool FileWriter::loadResources(std::vector<Resource>& resources,
 }
 
 // -------------------- RESERVATIONS --------------------
-bool FileWriter::saveReservations(const std::vector<Reservation>& reservations,
-                                  const std::string& filename) {
+bool FileWriter::saveReservations(const std::vector<Reservation> &reservations,
+                                  const std::string &filename)
+{
     std::ofstream outFile(filename);
-    if (!outFile) return false;
+    if (!outFile)
+        return false;
 
-    for (const auto& r : reservations) {
+    for (const auto &r : reservations)
+    {
         outFile << r.getReservationId() << ","
                 << r.getUsername() << ","
                 << r.getResourceId() << ","
@@ -64,15 +73,18 @@ bool FileWriter::saveReservations(const std::vector<Reservation>& reservations,
     return true;
 }
 
-bool FileWriter::loadReservations(std::vector<Reservation>& reservations,
-                                  const std::string& filename) {
+bool FileWriter::loadReservations(std::vector<Reservation> &reservations,
+                                  const std::string &filename)
+{
     std::ifstream inFile(filename);
-    if (!inFile) return false;
+    if (!inFile)
+        return false;
 
     reservations.clear();
     std::string line;
 
-    while (getline(inFile, line)) {
+    while (getline(inFile, line))
+    {
         std::stringstream ss(line);
         std::string resIdStr, username, resourceIdStr, timeStr, dayStr;
 
@@ -96,12 +108,15 @@ bool FileWriter::loadReservations(std::vector<Reservation>& reservations,
 }
 
 // -------------------- USERS --------------------
-bool FileWriter::saveUsers(const std::vector<User>& users,
-                           const std::string& filename) {
+bool FileWriter::saveUsers(const std::vector<User> &users,
+                           const std::string &filename)
+{
     std::ofstream outFile(filename);
-    if (!outFile) return false;
+    if (!outFile)
+        return false;
 
-    for (const auto& u : users) {
+    for (const auto &u : users)
+    {
         outFile << u.getUsername() << ","
                 << u.isAdmin() << "\n";
     }
@@ -110,15 +125,18 @@ bool FileWriter::saveUsers(const std::vector<User>& users,
     return true;
 }
 
-bool FileWriter::loadUsers(std::vector<User>& users,
-                           const std::string& filename) {
+bool FileWriter::loadUsers(std::vector<User> &users,
+                           const std::string &filename)
+{
     std::ifstream inFile(filename);
-    if (!inFile) return false;
+    if (!inFile)
+        return false;
 
     users.clear();
     std::string line;
 
-    while (getline(inFile, line)) {
+    while (getline(inFile, line))
+    {
         std::stringstream ss(line);
         std::string username, adminFlag;
 
@@ -133,11 +151,30 @@ bool FileWriter::loadUsers(std::vector<User>& users,
     return true;
 }
 
-ResourceType FileWriter::strToResourceType(std::string typeName){
-    if(typeName == "Study Room") {return StudyRoom;}
-    if(typeName == "Lab Equipment") {return LabEquipment;}
-    if(typeName == "Practice Room") {return PracticeRoom;}
-    if(typeName == "Sports Court") {return SportsCourt;}
-    if(typeName == "Tutoring") {return Tutoring;}
-    else {return Unknown;}
+ResourceType FileWriter::strToResourceType(std::string typeName)
+{
+    if (typeName == "Study Room")
+    {
+        return StudyRoom;
+    }
+    if (typeName == "Lab Equipment")
+    {
+        return LabEquipment;
+    }
+    if (typeName == "Practice Room")
+    {
+        return PracticeRoom;
+    }
+    if (typeName == "Sports Court")
+    {
+        return SportsCourt;
+    }
+    if (typeName == "Tutoring")
+    {
+        return Tutoring;
+    }
+    else
+    {
+        return Unknown;
+    }
 }
