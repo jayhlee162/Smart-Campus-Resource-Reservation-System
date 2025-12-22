@@ -133,12 +133,9 @@ User School::login()
     return User();
 }
 
-Reservation* School::createReservation(int resourceId, int timeSlot, int dayIndex, std::string username){
-    std::cout << "School: creating res";
-    Reservation* res = new Reservation(resourceId, timeSlot, dayIndex, username);
-    reservations.push_back(*res);
-    reservations[0].printReservation();
-    return res;
+Reservation& School::createReservation(int resourceId, int timeSlot, int dayIndex, std::string username){
+    reservations.emplace_back(resourceId, timeSlot, dayIndex, username);
+    return reservations.back();
 }
 
 void School::cancelReservation(int reservationId)
@@ -148,6 +145,7 @@ void School::cancelReservation(int reservationId)
 
 void School::printReservation(User)
 {
+    std::cout << "reservations size: " << reservations.size() << '\n';
     Reservation::printReservationHeader();
     for (int i = 0; i < reservations.size(); i++) {
         reservations[i].printReservation();

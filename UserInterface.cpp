@@ -62,7 +62,7 @@ void UserInterface::printStudentMenu(){
               << "5. Exit\n";
 }
 
-void UserInterface::createReservation(User user, School school){
+void UserInterface::createReservation(User user, School& school){
     // TODO: add logic to check for existing reservations. cancelled ones can be overwritten
     int timeSlot{0};
     int dayIndex;
@@ -85,15 +85,15 @@ void UserInterface::createReservation(User user, School school){
     
     resourceId = getIntFromUser();
 
-    Reservation* res = school.createReservation(resourceId-1, timeSlot, dayIndex-1, user.getUsername());
+    Reservation res = school.createReservation(resourceId-1, timeSlot, dayIndex-1, user.getUsername());
     
     std::cout << "Created a reservation!\n\n";
-    res->printReservation();
+    res.printReservation();
     
     waitForEnter();
 }
 
-void UserInterface::cancelReservation(User user, School school)
+void UserInterface::cancelReservation(User user, School& school)
 {
     // TODO: check if user is admin, if not they can only delete their own reservations
     int reservationId{0};
