@@ -1,7 +1,7 @@
 #include "UserInterface.h"
 
 
-bool UserInterface::isInputJustNumberz(std::string input) {
+bool UserInterface::isInputJustNumbers(std::string input) {
     for (int i = 0; i < input.length(); i++) {
         if (!std::isdigit(input[i])) {
             return false;
@@ -15,10 +15,10 @@ int UserInterface::getIntFromUser() {
     std::string input{};
     while(true) {
         std::getline(std::cin, input);
-        if (isInputJustNumberz(input)) {
+        if (isInputJustNumbers(input)) {
             return stoi(input);
         }
-        std::cout << "Invalid input. Try again: ";
+        std::cout << "Input must be a number. Try again: ";
     } 
 }
 
@@ -90,5 +90,18 @@ void UserInterface::createReservation(User user, School school){
     std::cout << "Created a reservation!\n\n";
     res->printReservation();
     
+    waitForEnter();
+}
+
+void UserInterface::cancelReservation(User user, School school)
+{
+    // TODO: check if user is admin, if not they can only delete their own reservations
+    int reservationId{0};
+
+    std::cout << "Enter the ID of the reservation you would like to cancel:\n";
+    reservationId = getIntFromUser();
+    school.cancelReservation(reservationId);
+    std::cout << "Reservation cancelled.";
+
     waitForEnter();
 }

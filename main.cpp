@@ -3,47 +3,47 @@
 #include "FileWriter.h"
 int main(){
   UserInterface run;
-  User u1;
-  School s1;
-  FileWriter f1;
-  std::string input;
+  User user;
+  School school;
+  FileWriter fileWriter;
+  int input;
   bool endProgram = false;
   
   
-  s1.loadAll();
-  s1.initializeResources();
+  school.loadAll();
+  school.initializeResources();
   
-  //Returns user object affiliated with username to u1
-  u1 = s1.login();
+  //Returns user object affiliated with username to user
+  user = school.login();
 
-  if(u1.isAdmin())
+  if(user.isAdmin())
   do{
     run.printAdminMenu();
-    std::getline(std::cin, input);
+    input = UserInterface::getIntFromUser();
     
-    if(stoi(input) > 0 && stoi(input) < 9){
-      switch (stoi(input))
+    if(input > 0 && input < 9){
+      switch (input)
       {
       case 1:
-        run.createReservation(u1, s1);
+        run.createReservation(user, school);
         break;
       case 2:
-        s1.cancelReservation(u1);
+        run.cancelReservation(user, school);
         break;
       case 3:
-        s1.printReservation(u1);
+        school.printReservation(user);
         break;
       case 4:
-        s1.printResources();
+        school.printResources();
         break;
       case 5:
-        s1.addResource();
+        school.addResource();
         break;
       case 6:
-        s1.removeResource();
+        school.removeResource();
         break;
       case 7:
-        s1.editResource();
+        school.editResource();
         break;
       case 8:
         endProgram = true;
@@ -57,22 +57,22 @@ int main(){
   else
   do{
     run.printStudentMenu();
-    std::getline(std::cin, input);
+    input = UserInterface::getIntFromUser();
     
-    if(stoi(input) > 0 && stoi(input) < 6){
-      switch (stoi(input))
+    if(input > 0 && input < 6){
+      switch (input)
       {
       case 1:
-        run.createReservation(u1, s1);
+        run.createReservation(user, school);
         break;
       case 2:
-        s1.cancelReservation(u1);
+        run.cancelReservation(user, school);
         break;
       case 3:
-        s1.printReservation(u1);
+        school.printReservation(user);
         break;
       case 4:
-        s1.printResources();
+        school.printResources();
         break;
       case 5:
         endProgram = true;
@@ -81,7 +81,7 @@ int main(){
     }
   }while (!endProgram);
 
-  s1.saveAll();
+  school.saveAll();
   
   return 0;
 }

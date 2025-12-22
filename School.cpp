@@ -134,21 +134,16 @@ User School::login()
 }
 
 Reservation* School::createReservation(int resourceId, int timeSlot, int dayIndex, std::string username){
+    std::cout << "School: creating res";
     Reservation* res = new Reservation(resourceId, timeSlot, dayIndex, username);
     reservations.push_back(*res);
+    reservations[0].printReservation();
     return res;
 }
 
-void School::cancelReservation(User)
+void School::cancelReservation(int reservationId)
 {
-    int reservationId{0};
-
-    std::cout << "Enter the ID of the reservation you would like to cancel:\n";
-    std::cin >> reservationId;
     reservations[reservationId].cancelReservation();
-    std::cout << "Reservation cancelled.";
-
-    waitForEnter();
 }
 
 void School::printReservation(User)
