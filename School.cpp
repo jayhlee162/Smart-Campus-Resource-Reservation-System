@@ -30,6 +30,61 @@ void School::saveAll()
 }
 
 
+/* 
+    Used for creating default resources when program starts up, so that
+    they don't have to be manually input each time.
+*/
+void School::initializeResources(){
+    if(resources.empty()){
+        resources.emplace_back(0, "Study Room", StudyRoom, 12);
+        resources.emplace_back(1, "Lab Equipment", LabEquipment, 4);
+        resources.emplace_back(2, "Practice Room", PracticeRoom, 20);
+        resources.emplace_back(3, "Sports Court", SportsCourt, 30);
+        resources.emplace_back(4, "Tutoring", Tutoring, 2);
+        resources.emplace_back(5, "Unknown", Unknown, 1000);
+    }
+}
+
+
+/*
+    Checks if a resource has already been reserved by comparing the id, day and
+    time to existing reservations. Ignores cancelled reservations.
+*/
+bool School::isReservedAlready(int resourceId, int timeSlot, int dayIndex) const {
+
+    for (int i = 0; i < reservations.size(); i++) {
+
+        if (reservations[i].isCancelled()) continue;
+
+        if (reservations[i].getResourceId() == resourceId && 
+            reservations[i].getTimeSlot() == timeSlot &&
+            reservations[i].getDayIndex() == dayIndex) {
+
+                return true;
+
+            }
+    }
+
+    return false;
+}
+
+
+/* 
+    Removes a resource at the provided index. Returns true if successful, and false
+    if the index is out of bounds.
+*/
+bool School::removeResource(int resourceIndex)
+{
+    if (resourceIndex >= 0 && resourceIndex < resources.size())
+    {
+        resources.erase(resources.begin() + resourceIndex);
+        return true;
+    }
+
+    return false;
+}
+
+
 Reservation& School::createReservation(int resourceId, int timeSlot, int dayIndex, std::string username)
 {
     Reservation res{resourceId, timeSlot, dayIndex, username};
@@ -77,22 +132,6 @@ void School::addResource(std::string resourceName, ResourceType resourceType, in
 }
 
 
-/* 
-    Removes a resource at the provided index. Returns true if successful, and false
-    if the index is out of bounds.
-*/
-bool School::removeResource(int resourceIndex)
-{
-    if (resourceIndex >= 0 && resourceIndex < resources.size())
-    {
-        resources.erase(resources.begin() + resourceIndex);
-        return true;
-    }
-
-    return false;
-}
-
-
 void School::editResource()
 {
     int index;
@@ -120,42 +159,4 @@ void School::editResource()
     std::cout << "Resource updated successfully.\n";
 }
 
-
-/* 
-    Used for creating default resources when program starts up, so that
-    they don't have to be manually input each time.
-*/
-void School::initializeResources(){
-    if(resources.empty()){
-        resources.emplace_back(0, "Study Room", StudyRoom, 12);
-        resources.emplace_back(1, "Lab Equipment", LabEquipment, 4);
-        resources.emplace_back(2, "Practice Room", PracticeRoom, 20);
-        resources.emplace_back(3, "Sports Court", SportsCourt, 30);
-        resources.emplace_back(4, "Tutoring", Tutoring, 2);
-        resources.emplace_back(5, "Unknown", Unknown, 1000);
-    }
-}
-
-
-/*
-    Checks if a resource has already been reserved by comparing the id, day and
-    time to existing reservations. Ignores cancelled reservations.
-*/
-bool School::isReservedAlready(int resourceId, int timeSlot, int dayIndex) const {
-
-    for (int i = 0; i < reservations.size(); i++) {
-
-        if (reservations[i].isCancelled()) continue;
-
-        if (reservations[i].getResourceId() == resourceId && 
-            reservations[i].getTimeSlot() == timeSlot &&
-            reservations[i].getDayIndex() == dayIndex) {
-
-                return true;
-
-            }
-    }
-
-    return false;
-}
 
