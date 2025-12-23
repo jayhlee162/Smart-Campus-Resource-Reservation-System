@@ -58,6 +58,7 @@ void Reservation::incrementIdCount() {
     reservationIdCount++;
 }
 
+/*used to help with output formatting and readability*/
 void Reservation::printReservationHeader() {
     std::cout << std::right;
     std::cout << std::setw(20) << "reservationId";
@@ -67,6 +68,7 @@ void Reservation::printReservationHeader() {
     std::cout << std::setw(20) << "username" << "\n";
 }
 
+/*prints data corresponding with calling reservation object*/
 void Reservation::printReservation() {
     std::string days[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     std::cout << std::right;
@@ -77,6 +79,8 @@ void Reservation::printReservation() {
     std::cout << std::setw(20) << username << "\n";
 }
 
+/*helps ensure two reservations do not have the same resource, day, and time. returns false if reservation is valid, 
+true if reservation is made at invalid time*/
 bool Reservation::collisionCheck(const Reservation &other) const
 {
     {
@@ -93,15 +97,18 @@ bool Reservation::collisionCheck(const Reservation &other) const
     }
 }
 
+/*allows for simple output by passing outstream object a comprehensive string*/
 void Reservation::print(std::ostream &out) const {
     out << "Reservation ID: " << this->reservationId << "\n" << "Party Name: " << this->username << "\n" << "Day: " << this->dayIndex << "\n" << "Time: " << this->timeSlot;
 }
 
+/*allows for simple printing of reservation objects*/
 std::ostream &operator<<(std::ostream &out, const Reservation &reservation){
     reservation.print(out);
     return out;
 }
 
+/*allows for comparison of two reservations*/
 bool Reservation::operator==(const Reservation &other){
     if(this->resourceId == other.resourceId 
         && this->timeSlot == other.timeSlot 

@@ -243,7 +243,7 @@ void UserInterface::removeResourceInteractive(School &school)
     
 }
 
-
+/*Interactive prompt that allows user to edit a give resources information*/
 void UserInterface::editResourceInteractive(School& school)
 {
     int index;

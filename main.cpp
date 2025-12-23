@@ -16,7 +16,7 @@ int main(){
   //Returns user object affiliated with username to user
   user = run.loginInteractive(school);
 
-  if(user.isAdmin())
+  if(user.isAdmin()) //runs if user has admin status = true
   do{
     run.printAdminMenu();
     input = run.getIntFromUser();
@@ -56,7 +56,7 @@ int main(){
     }
   }while (!endProgram);
 
-  else
+  else //runs if admin status = false
   do{
     run.printStudentMenu();
     input = run.getIntFromUser();

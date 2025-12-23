@@ -13,7 +13,7 @@ std::vector<User>& School::getUsers()
     return users;
 }
 
-
+/*allows main to call all loading functions at once, cleaner main function and ensures proper loading*/
 void School::loadAll()
 {
     FileWriter::loadUsers(users, "SCRRSusers.csv");
@@ -21,7 +21,7 @@ void School::loadAll()
     FileWriter::loadResources(resources, "SCRRSresources.csv");
 }
 
-
+/*allows main to save all data at once, cleaner main function and ensures proper loading*/
 void School::saveAll()
 {
     FileWriter::saveUsers(users, "SCRRSusers.csv");
@@ -84,7 +84,7 @@ bool School::removeResource(int resourceIndex)
     return false;
 }
 
-
+/*creates a reservation object attached to username and resource at chosen date and time, returns created reservation*/
 Reservation& School::createReservation(int resourceId, int timeSlot, int dayIndex, std::string username)
 {
     Reservation res{resourceId, timeSlot, dayIndex, username};
@@ -93,6 +93,7 @@ Reservation& School::createReservation(int resourceId, int timeSlot, int dayInde
     return reservations.back();
 }
 
+/*removes reservation corresponding with reservationID from vector and returns true if successful, false if unsuccessful*/
 bool School::cancelReservation(int reservationId)
 {
     if (reservationId < reservations.size() && reservationId >=0) {
@@ -102,6 +103,7 @@ bool School::cancelReservation(int reservationId)
     return false;
 }
 
+/*calls printReservationHeader for formatting and prints all non-cancelled reservations*/
 void School::printAllReservations(User)
 {
     Reservation::printReservationHeader();
@@ -113,8 +115,7 @@ void School::printAllReservations(User)
     std::cout << '\n';
 }
 
-
-
+/*prints name of all resources available for reserving at the school*/
 void School::printResources()
 {
     std::cout << "Available Resources:\n";
@@ -124,14 +125,14 @@ void School::printResources()
     }
 }
 
-
+/*allows admin to create a new resource by creating new resource object with taken name, type, and capacity, adds to resources vector*/
 void School::addResource(std::string resourceName, ResourceType resourceType, int capacity)
 {
     int id = resources.size();
     resources.emplace_back(id, resourceName, resourceType, capacity);
 }
 
-
+/*takes a resource id and allows admin to change information about corresponding resource through user input*/
 void School::editResource()
 {
     int index;
