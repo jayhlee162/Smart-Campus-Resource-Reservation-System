@@ -1,6 +1,9 @@
 #include "UserInterface.h"
 
 
+/*
+    Prints available options to users with admin status.
+*/
 void UserInterface::printAdminMenu()
 {
     std::cout << std::string(54, '-') + '\n'
@@ -19,6 +22,9 @@ void UserInterface::printAdminMenu()
 }
 
 
+/*
+    Prints available options to users with student status.
+*/
 void UserInterface::printStudentMenu()
 {
     std::cout << std::string(54, '-') + '\n'
@@ -34,6 +40,10 @@ void UserInterface::printStudentMenu()
 }
 
 
+/*
+    Interactive prompt that lets a user either login, or create a new account
+    and automatically login to the new account.
+*/
 User UserInterface::loginInteractive(School& school)
 {
     std::string username = " ";
@@ -120,6 +130,11 @@ User UserInterface::loginInteractive(School& school)
 }
 
 
+/*
+    Interactive prompt that lets user create a new reservation. If the chosen
+    resource is already reserved at the chosen time and hour, the user is informed 
+    and no reservation is made.
+*/
 void UserInterface::createReservationInteractive(User &user, School &school)
 {
     int timeSlot{0};
@@ -162,6 +177,13 @@ void UserInterface::createReservationInteractive(User &user, School &school)
 }
 
 
+/*
+    Interactive prompt that allows a user to cancel a reservation. When a
+    reservation is cancelled, its "cancelled property" is set to true but
+    it remains in the reservations vector so that the id still corresponds to
+    the index. If someone then tries to make a new reservation with the same
+    resource and time it will work.
+*/
 void UserInterface::cancelReservationInteractive(User &user, School &school)
 {
     // TODO: check if user is admin, if not they can only delete their own reservations
@@ -182,6 +204,9 @@ void UserInterface::cancelReservationInteractive(User &user, School &school)
 }
 
 
+/*
+    Interactive prompt that allows a user to add a new resource to the school.
+*/
 void UserInterface::addResourceInteractive(School &school)
 {
     std::string resourceName;
@@ -196,6 +221,9 @@ void UserInterface::addResourceInteractive(School &school)
 }
 
 
+/*
+    Interactive prompt that allows a user to remove a resource to the school.
+*/
 void UserInterface::removeResourceInteractive(School &school)
 {
     int resourceIndex;
