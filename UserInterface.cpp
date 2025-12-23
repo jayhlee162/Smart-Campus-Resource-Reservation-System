@@ -1,5 +1,39 @@
 #include "UserInterface.h"
 
+
+void UserInterface::printAdminMenu()
+{
+    std::cout << std::string(54, '-') + '\n'
+              << "| Welcome to the Campus Resource Reservation System! |\n"
+              << std::string(54, '-') + '\n'
+              << "\n"
+              << "Please select an option: \n"
+              << "1. Create Reservation\n"
+              << "2. Cancel Reservation\n"
+              << "3. View Current Reservations\n"
+              << "4. List Available Resources\n"
+              << "5. Add Resource\n"
+              << "6. Remove Resource\n"
+              << "7. Edit resource\n"
+              << "8. Exit\n";
+}
+
+
+void UserInterface::printStudentMenu()
+{
+    std::cout << std::string(54, '-') + '\n'
+              << "| Welcome to the Campus Resource Reservation System! |\n"
+              << std::string(54, '-') + '\n'
+              << "\n"
+              << "Please select an option: \n"
+              << "1. Create Reservation\n"
+              << "2. Cancel Reservation\n"
+              << "3. View Current Reservations\n"
+              << "4. List Available Resources\n"
+              << "5. Exit\n";
+}
+
+
 User UserInterface::loginInteractive(School& school)
 {
     std::string username = " ";
@@ -83,77 +117,6 @@ User UserInterface::loginInteractive(School& school)
     } while (reEnter);
 
     return User();
-}
-
-
-bool UserInterface::isInputJustNumbers(std::string input)
-{
-    for (int i = 0; i < input.length(); i++)
-    {
-        if (!std::isdigit(input[i]))
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-int UserInterface::getIntFromUser()
-{
-    std::string input{};
-    while (true)
-    {
-        std::getline(std::cin, input);
-        if (isInputJustNumbers(input))
-        {
-            return stoi(input);
-        }
-        std::cout << "Input must be a number. Try again: ";
-    }
-}
-
-
-void UserInterface::waitForEnter()
-{
-    std::cout << "Press enter to continue. . .";
-
-    std::string input;
-    std::getline(std::cin, input);
-    std::cout << "\n";
-}
-
-
-void UserInterface::printAdminMenu()
-{
-    std::cout << std::string(54, '-') + '\n'
-              << "| Welcome to the Campus Resource Reservation System! |\n"
-              << std::string(54, '-') + '\n'
-              << "\n"
-              << "Please select an option: \n"
-              << "1. Create Reservation\n"
-              << "2. Cancel Reservation\n"
-              << "3. View Current Reservations\n"
-              << "4. List Available Resources\n"
-              << "5. Add Resource\n"
-              << "6. Remove Resource\n"
-              << "7. Edit resource\n"
-              << "8. Exit\n";
-}
-
-
-void UserInterface::printStudentMenu()
-{
-    std::cout << std::string(54, '-') + '\n'
-              << "| Welcome to the Campus Resource Reservation System! |\n"
-              << std::string(54, '-') + '\n'
-              << "\n"
-              << "Please select an option: \n"
-              << "1. Create Reservation\n"
-              << "2. Cancel Reservation\n"
-              << "3. View Current Reservations\n"
-              << "4. List Available Resources\n"
-              << "5. Exit\n";
 }
 
 
@@ -280,3 +243,52 @@ void UserInterface::editResourceInteractive(School& school)
     waitForEnter();
 }
 
+
+/* ------------------ UTILITY FUNCTIONS ------------------*/
+
+/*
+    Utility function to check if string only contains digits.
+*/
+bool UserInterface::isInputJustNumbers(std::string input)
+{
+    for (int i = 0; i < input.length(); i++)
+    {
+        if (!std::isdigit(input[i]))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+/*
+    Utility function to get an int from user that reprompts the user if
+    invalid characters are input.
+*/
+int UserInterface::getIntFromUser()
+{
+    std::string input{};
+    while (true)
+    {
+        std::getline(std::cin, input);
+        if (isInputJustNumbers(input))
+        {
+            return stoi(input);
+        }
+        std::cout << "Input must be a number. Try again: ";
+    }
+}
+
+
+/*
+    Utility function to prompt the user to press enter. Helps with program flow
+    and user experience.
+*/
+void UserInterface::waitForEnter()
+{
+    std::cout << "Press enter to continue. . .";
+
+    std::string input;
+    std::getline(std::cin, input);
+    std::cout << "\n";
+}
